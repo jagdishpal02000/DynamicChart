@@ -7,8 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [chartType, setChartType] = useState("-1");
-  const [labelsInput, setLabelsInput] = useState([{ label: "" }]);
-  const [dataValues, setDataValues] = useState([{ data: "" }]);
+  const [labelsInput, setLabelsInput] = useState([{ label: "", data: "" }]);
   const [showChart, setShowChart] = useState(false);
   const [DATA, setDATA] = useState([]);
   const [LABELS, setLABELS] = useState([]);
@@ -28,23 +27,14 @@ export default function App() {
     setLabelsInput(data);
   };
 
-  const handleChangeData = (index, event) => {
-    let data = [...dataValues];
-    data[index][event.target.name] = event.target.value;
-    setDataValues(data);
-  };
   const addLabelFields = () => {
-    let newfield = { label: "" };
+    let newfield = { label: "", data: "" };
     setLabelsInput([...labelsInput, newfield]);
-  };
-  const addDataFields = () => {
-    let newfield = { data: "" };
-    setDataValues([...dataValues, newfield]);
   };
 
   const createChart = () => {
     const labels = labelsInput.map((i) => i.label);
-    const data = dataValues.map((i) => i.data);
+    const data = labelsInput.map((i) => i.data);
     setDATA(data);
     setLABELS(labels);
     setShowChart(true);
@@ -82,12 +72,20 @@ export default function App() {
           <p>Enter Labels</p>
           {labelsInput.map((item, index) => {
             return (
-              <input
-                name="label"
-                placeholder="label"
-                value={item.label}
-                onChange={(event) => handleChangeLabel(index, event)}
-              />
+              <>
+                <input
+                  name="label"
+                  placeholder="label"
+                  value={item.label}
+                  onChange={(event) => handleChangeLabel(index, event)}
+                />
+                <input
+                  name="data"
+                  placeholder="data"
+                  value={item.data}
+                  onChange={(event) => handleChangeLabel(index, event)}
+                />
+              </>
             );
           })}
           <button
@@ -97,23 +95,6 @@ export default function App() {
             Add More Labels
           </button>
           <br />
-
-          {dataValues.map((item, index) => {
-            return (
-              <input
-                name="data"
-                placeholder="data"
-                value={item.label}
-                onChange={(event) => handleChangeData(index, event)}
-              />
-            );
-          })}
-          <button
-            className="btn btn-sm btn-outline-secondary"
-            onClick={addDataFields}
-          >
-            Add More Data
-          </button>
         </Modal.Body>
         <Modal.Footer>
           <button className="btn btn-outline-danger" onClick={hideModal}>

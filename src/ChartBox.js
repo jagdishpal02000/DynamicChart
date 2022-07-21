@@ -9,7 +9,7 @@ function ChartBox({ TYPE, DATA, LABELS }) {
     labels: LABELS,
     datasets: [
       {
-        label: "My First Dataset",
+        label: "Dataset",
         data: DATA,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
@@ -36,7 +36,7 @@ function ChartBox({ TYPE, DATA, LABELS }) {
 
   if (TYPE === "1") {
     return (
-      <div style={{ width: "250px" }}>
+      <div style={{ width: "500px" }}>
         <Line data={data} />
       </div>
     );
